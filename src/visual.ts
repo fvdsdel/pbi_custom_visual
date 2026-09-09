@@ -112,6 +112,7 @@ export class Visual implements IVisual {
                     rowLabel.style.setProperty("grid-column", "1", "important");
                     rowLabel.style.setProperty("justify-self", "start", "important");
                     rowLabel.style.setProperty("text-align", "left", "important");
+                    rowLabel.style.setProperty("font-size", "8", "important");
                     rowLabel.style.setProperty(
                         "grid-row",
                         String(Math.floor(detailIndex / 2) + 1),
