@@ -100,7 +100,8 @@ export class Visual implements IVisual {
                 }
 
                 const field = document.createElement("div");
-                field.className = "field";
+                const labelText = detailIndex === 0 ? "BOL" : detailIndex === 2 ? "BBL" : "";
+                field.className = labelText ? "field" : "field field-without-label";
                 field.style.setProperty(
                     "grid-column",
                     String((detailIndex % 2) + 1),
@@ -112,14 +113,16 @@ export class Visual implements IVisual {
                     "important"
                 );
 
-                const label = this.createTextElement("div", "label", column.source.displayName);
                 const value = this.createTextElement(
                     "div",
                     "value",
                     this.valueAt(column.values, rowIndex)
                 );
 
-                field.append(label, value);
+                if (labelText) {
+                    field.appendChild(this.createTextElement("div", "label", labelText));
+                }
+                field.appendChild(value);
                 details.appendChild(field);
             }
 
