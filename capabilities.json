@@ -150,6 +150,16 @@
             }
           }
         },
+        "backgroundColor": {
+          "displayName": "Background color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
         "bold": {
           "displayName": "Bold",
           "type": {
@@ -224,6 +234,16 @@
             }
           }
         },
+        "backgroundColor": {
+          "displayName": "Background color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
         "bold": {
           "displayName": "Bold",
           "type": {
@@ -290,6 +310,16 @@
         },
         "color": {
           "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "backgroundColor": {
+          "displayName": "Background color",
           "type": {
             "fill": {
               "solid": {

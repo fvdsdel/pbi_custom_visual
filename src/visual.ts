@@ -60,7 +60,7 @@ export class Visual implements IVisual {
             const primaryValue = this.createTextElement(
                 "div",
                 "primary-value",
-                this.valueAt(primaryColumn.values, rowIndex)
+                this.valueAt(primaryColumn, rowIndex)
             );
             this.applyTextSettings(primaryValue, fieldTextSettings[0]);
             const primary = document.createElement("div");
@@ -81,9 +81,10 @@ export class Visual implements IVisual {
                 const change = this.createTextElement(
                     "div",
                     "change",
-                    this.valueAt(secondaryColumn.values, rowIndex)
+                    this.valueAt(secondaryColumn, rowIndex)
                 );
                 this.applyTextSettings(change, fieldTextSettings[1]);
+                this.applyBackgroundSetting(change, fieldTextSettings[1]);
                 summary.appendChild(change);
             }
             record.appendChild(summary);
@@ -141,9 +142,10 @@ export class Visual implements IVisual {
                 const value = this.createTextElement(
                     "div",
                     "value",
-                    this.valueAt(column.values, rowIndex)
+                    this.valueAt(column, rowIndex)
                 );
                 this.applyTextSettings(value, fieldTextSettings[detailIndex + 2]);
+                this.applyBackgroundSetting(value, fieldTextSettings[detailIndex + 2]);
 
                 field.appendChild(value);
                 details.appendChild(field);
@@ -161,8 +163,19 @@ export class Visual implements IVisual {
         return this.settings.getFormattingModel();
     }
 
-    private valueAt(values: ReadonlyArray<unknown>, index: number): string {
-        const value = values[index];
+    private valueAt(
+        column: {
+            values: ReadonlyArray<unknown>;
+            formattedValues?: ReadonlyArray<string | null | undefined>;
+        },
+        index: number
+    ): string {
+        const formattedValue = column.formattedValues?.[index];
+        if (formattedValue !== null && formattedValue !== undefined) {
+            return formattedValue;
+        }
+
+        const value = column.values[index];
         return value === null || value === undefined ? "(Blank)" : String(value);
     }
 
@@ -171,6 +184,16 @@ export class Visual implements IVisual {
         element.style.setProperty("font-size", `${settings.fontSize}px`, "important");
         element.style.setProperty("color", settings.color, "important");
         element.style.setProperty("font-weight", settings.bold ? "700" : "400", "important");
+    }
+
+    private applyBackgroundSetting(element: HTMLElement, settings: FieldTextSettings): void {
+        if (settings.backgroundColor !== undefined) {
+            element.style.setProperty(
+                "background-color",
+                settings.backgroundColor,
+                "important"
+            );
+        }
     }
 
     private createTextElement<K extends keyof HTMLElementTagNameMap>(

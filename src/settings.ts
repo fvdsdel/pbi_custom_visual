@@ -15,6 +15,7 @@ export interface FieldTextSettings {
     fontSize: number;
     color: string;
     bold: boolean;
+    backgroundColor?: string;
 }
 
 const defaultCardSettings: CardSettings = {
@@ -24,11 +25,29 @@ const defaultCardSettings: CardSettings = {
 
 const defaultFieldTextSettings: readonly FieldTextSettings[] = [
     { fontFamily: "Segoe UI", fontSize: 16, color: "#111", bold: true },
-    { fontFamily: "Segoe UI", fontSize: 13, color: "#00a651", bold: false },
+    {
+        fontFamily: "Segoe UI",
+        fontSize: 13,
+        color: "#00a651",
+        bold: false,
+        backgroundColor: "transparent"
+    },
     { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: false },
+    {
+        fontFamily: "Segoe UI",
+        fontSize: 11,
+        color: "#111",
+        bold: false,
+        backgroundColor: "transparent"
+    },
     { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: false }
+    {
+        fontFamily: "Segoe UI",
+        fontSize: 11,
+        color: "#111",
+        bold: false,
+        backgroundColor: "transparent"
+    }
 ];
 
 export class VisualSettings {
@@ -180,16 +199,37 @@ export class VisualSettings {
                             objectName,
                             "color",
                             "Color",
-                            settings.color
+                            settings.color,
+                            true
                         )
                     ]
-                }
+                },
+                ...(settings.backgroundColor === undefined
+                    ? []
+                    : [
+                          {
+                              uid: `${objectName}Background`,
+                              displayName: "Background",
+                              slices: [
+                                  this.createColorPickerSlice(
+                                      objectName,
+                                      "backgroundColor",
+                                      "Color",
+                                      settings.backgroundColor,
+                                      true
+                                  )
+                              ]
+                          }
+                      ])
             ],
             revertToDefaultDescriptors: [
                 this.createDescriptor(objectName, "fontFamily"),
                 this.createDescriptor(objectName, "fontSize"),
                 this.createDescriptor(objectName, "color"),
-                this.createDescriptor(objectName, "bold")
+                this.createDescriptor(objectName, "bold"),
+                ...(settings.backgroundColor === undefined
+                    ? []
+                    : [this.createDescriptor(objectName, "backgroundColor")])
             ]
         };
     }
@@ -198,15 +238,23 @@ export class VisualSettings {
         objectName: string,
         propertyName: string,
         displayName: string,
-        color: string
+        color: string,
+        supportsConditionalFormatting = false
     ): powerbi.visuals.FormattingSlice {
+        const descriptor = this.createDescriptor(objectName, propertyName);
+
+        if (supportsConditionalFormatting) {
+            descriptor.instanceKind =
+                powerbi.VisualEnumerationInstanceKinds.ConstantOrRule;
+        }
+
         return {
             uid: `${objectName}${propertyName}`,
             displayName,
             control: {
                 type: powerbi.visuals.FormattingComponent.ColorPicker,
                 properties: {
-                    descriptor: this.createDescriptor(objectName, propertyName),
+                    descriptor,
                     value: { value: color }
                 }
             }
@@ -230,7 +278,15 @@ function parseFieldTextSettings(
         fontFamily: stringValue(propertyValue(objects, objectName, "fontFamily"), defaults.fontFamily),
         fontSize: fontSizeValue(propertyValue(objects, objectName, "fontSize"), defaults.fontSize),
         color: colorValue(propertyValue(objects, objectName, "color"), defaults.color),
-        bold: booleanValue(propertyValue(objects, objectName, "bold"), defaults.bold)
+        bold: booleanValue(propertyValue(objects, objectName, "bold"), defaults.bold),
+        ...(defaults.backgroundColor === undefined
+            ? {}
+            : {
+                  backgroundColor: colorValue(
+                      propertyValue(objects, objectName, "backgroundColor"),
+                      defaults.backgroundColor
+                  )
+              })
     };
 }
 
