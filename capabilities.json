@@ -2,16 +2,16 @@
   "privileges": [],
   "dataRoles": [
     {
-      "displayName": "Field 1",
+      "displayName": "Aantal huidig jaar",
       "name": "field1",
       "kind": "GroupingOrMeasure",
-      "description": "First field to display."
+      "description": "Current-year amount to display as the main value."
     },
     {
-      "displayName": "Field 2",
+      "displayName": "Verschil vorig jaar",
       "name": "field2",
       "kind": "GroupingOrMeasure",
-      "description": "Second field to display."
+      "description": "Difference from the previous year to display beside the main value."
     },
     {
       "displayName": "Field 3",
