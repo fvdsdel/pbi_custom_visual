@@ -92,7 +92,7 @@ export class Visual implements IVisual {
             details.style.setProperty("display", "grid", "important");
             details.style.setProperty(
                 "grid-template-columns",
-                "auto repeat(2, minmax(0, 1fr))",
+                "auto minmax(0, 0.85fr) minmax(0, 1.15fr)",
                 "important"
             );
 
@@ -108,6 +108,8 @@ export class Visual implements IVisual {
                         detailIndex === 0 ? "BOL" : "BBL"
                     );
                     rowLabel.style.setProperty("grid-column", "1", "important");
+                    rowLabel.style.setProperty("justify-self", "start", "important");
+                    rowLabel.style.setProperty("text-align", "left", "important");
                     rowLabel.style.setProperty(
                         "grid-row",
                         String(Math.floor(detailIndex / 2) + 1),
@@ -117,7 +119,8 @@ export class Visual implements IVisual {
                 }
 
                 const field = document.createElement("div");
-                field.className = "field";
+                field.className =
+                    detailIndex === 0 || detailIndex === 2 ? "field field-emphasized" : "field";
                 field.style.setProperty(
                     "grid-column",
                     String((detailIndex % 2) + 2),
