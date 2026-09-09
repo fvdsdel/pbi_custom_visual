@@ -8,5 +8,5 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "files": ["src/visual.ts"]
+  "files": ["src/visual.ts", "src/settings.ts"]
 }

@@ -1,32 +1,12 @@
 "use strict";
 
 import powerbi from "powerbi-visuals-api";
+import { FieldTextSettings, VisualSettings } from "./settings";
 
 import DataView = powerbi.DataView;
 import IVisual = powerbi.extensibility.visual.IVisual;
 import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
-
-interface CardSettings {
-    outlineColor: string;
-    accentColor: string;
-}
-
-interface FieldTextSettings {
-    fontFamily: string;
-    fontSize: number;
-    color: string;
-    bold: boolean;
-}
-
-const defaultFieldTextSettings: ReadonlyArray<FieldTextSettings> = [
-    { fontFamily: "Segoe UI", fontSize: 16, color: "#111", bold: true },
-    { fontFamily: "Segoe UI", fontSize: 13, color: "#00a651", bold: false },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: false },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: false }
-];
 
 export class Visual implements IVisual {
     private readonly container: HTMLDivElement;
@@ -47,8 +27,9 @@ export class Visual implements IVisual {
         const categories = dataView?.categorical?.categories ?? [];
         const values = dataView?.categorical?.values ?? [];
         const columns = [...categories, ...values].slice(0, 6);
-        const cardSettings = this.getCardSettings(dataView);
-        const fieldTextSettings = this.getFieldTextSettings(dataView);
+        const settings = VisualSettings.parse(dataView);
+        const cardSettings = settings.card;
+        const fieldTextSettings = settings.fieldTextSettings;
         const columnForRole = (role: string) =>
             columns.find((column) => column.source.roles?.[role]);
         const primaryColumn = columnForRole("field1");
@@ -180,60 +161,11 @@ export class Visual implements IVisual {
         return value === null || value === undefined ? "(Blank)" : String(value);
     }
 
-    private getCardSettings(dataView: DataView | undefined): CardSettings {
-        const card = dataView?.metadata?.objects?.["card"];
-
-        return {
-            outlineColor: this.colorValue(card?.["outlineColor"], "#168577"),
-            accentColor: this.colorValue(card?.["accentColor"], "#168577")
-        };
-    }
-
-    private getFieldTextSettings(dataView: DataView | undefined): FieldTextSettings[] {
-        const objects = dataView?.metadata?.objects;
-
-        return defaultFieldTextSettings.map((defaults, index) => {
-            const formatting = objects?.[`field${index + 1}Formatting`];
-
-            return {
-                fontFamily: this.stringValue(formatting?.["fontFamily"], defaults.fontFamily),
-                fontSize: this.fontSizeValue(formatting?.["fontSize"], defaults.fontSize),
-                color: this.colorValue(formatting?.["color"], defaults.color),
-                bold: this.booleanValue(formatting?.["bold"], defaults.bold)
-            };
-        });
-    }
-
     private applyTextSettings(element: HTMLElement, settings: FieldTextSettings): void {
         element.style.setProperty("font-family", settings.fontFamily, "important");
         element.style.setProperty("font-size", `${settings.fontSize}px`, "important");
         element.style.setProperty("color", settings.color, "important");
         element.style.setProperty("font-weight", settings.bold ? "700" : "400", "important");
-    }
-
-    private colorValue(value: unknown, fallback: string): string {
-        if (typeof value !== "object" || value === null || !("solid" in value)) {
-            return fallback;
-        }
-
-        const solid = value.solid;
-        if (typeof solid !== "object" || solid === null || !("color" in solid)) {
-            return fallback;
-        }
-
-        return typeof solid.color === "string" ? solid.color : fallback;
-    }
-
-    private stringValue(value: unknown, fallback: string): string {
-        return typeof value === "string" && value.trim().length > 0 ? value : fallback;
-    }
-
-    private fontSizeValue(value: unknown, fallback: number): number {
-        return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
-    }
-
-    private booleanValue(value: unknown, fallback: boolean): boolean {
-        return typeof value === "boolean" ? value : fallback;
     }
 
     private createTextElement<K extends keyof HTMLElementTagNameMap>(
