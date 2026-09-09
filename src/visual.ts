@@ -32,9 +32,14 @@ export class Visual implements IVisual {
         const values = dataView?.categorical?.values ?? [];
         const columns = [...categories, ...values].slice(0, 6);
         const cardSettings = this.getCardSettings(dataView);
+        const columnForRole = (role: string) =>
+            columns.find((column) => column.source.roles?.[role]);
+        const primaryColumn = columnForRole("field1");
+        const secondaryColumn = columnForRole("field2");
+        const detailColumns = ["field3", "field4", "field5", "field6"].map(columnForRole);
 
-        if (columns.length === 0) {
-            this.renderMessage("Add up to six fields to the visual.");
+        if (!primaryColumn) {
+            this.renderMessage("Add Aantal huidig jaar to the visual.");
             return;
         }
 
@@ -49,7 +54,6 @@ export class Visual implements IVisual {
             record.style.setProperty("--outline-color", cardSettings.outlineColor);
             record.style.setProperty("--accent-color", cardSettings.accentColor);
 
-            const primaryColumn = columns[0];
             const title = this.createTextElement("div", "title", primaryColumn.source.displayName);
             const info = document.createElement("span");
             info.className = "info";
@@ -71,11 +75,11 @@ export class Visual implements IVisual {
             summary.className = "summary";
             summary.appendChild(primary);
 
-            if (columns.length > 1) {
+            if (secondaryColumn) {
                 const change = this.createTextElement(
                     "div",
                     "change",
-                    this.valueAt(columns[1].values, rowIndex)
+                    this.valueAt(secondaryColumn.values, rowIndex)
                 );
                 summary.appendChild(change);
             }
@@ -83,14 +87,30 @@ export class Visual implements IVisual {
 
             const details = document.createElement("div");
             details.className = "details";
-            details.style.display = "grid";
-            details.style.gridTemplateColumns = "minmax(0, 1fr) minmax(0, 1fr)";
+            details.style.setProperty("display", "grid", "important");
+            details.style.setProperty(
+                "grid-template-columns",
+                "repeat(2, minmax(0, 1fr))",
+                "important"
+            );
 
-            for (const [detailIndex, column] of columns.slice(2).entries()) {
+            for (const [detailIndex, column] of detailColumns.entries()) {
+                if (!column) {
+                    continue;
+                }
+
                 const field = document.createElement("div");
                 field.className = "field";
-                field.style.gridColumn = String((detailIndex % 2) + 1);
-                field.style.gridRow = String(Math.floor(detailIndex / 2) + 1);
+                field.style.setProperty(
+                    "grid-column",
+                    String((detailIndex % 2) + 1),
+                    "important"
+                );
+                field.style.setProperty(
+                    "grid-row",
+                    String(Math.floor(detailIndex / 2) + 1),
+                    "important"
+                );
 
                 const label = this.createTextElement("div", "label", column.source.displayName);
                 const value = this.createTextElement(
