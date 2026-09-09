@@ -14,25 +14,25 @@
       "description": "Difference from the previous year to display beside the main value."
     },
     {
-      "displayName": "Field 3",
+      "displayName": "Aantal BOL",
       "name": "field3",
       "kind": "GroupingOrMeasure",
       "description": "Third field to display."
     },
     {
-      "displayName": "Field 4",
+      "displayName": "Verschil BOL",
       "name": "field4",
       "kind": "GroupingOrMeasure",
       "description": "Fourth field to display."
     },
     {
-      "displayName": "Field 5",
+      "displayName": "Aantal BBL",
       "name": "field5",
       "kind": "GroupingOrMeasure",
       "description": "Fifth field to display."
     },
     {
-      "displayName": "Field 6",
+      "displayName": "Verschil BBL",
       "name": "field6",
       "kind": "GroupingOrMeasure",
       "description": "Sixth field to display."
