@@ -10,6 +10,7 @@ import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 
 export class Visual implements IVisual {
     private readonly container: HTMLDivElement;
+    private settings: VisualSettings = new VisualSettings();
 
     constructor(options?: VisualConstructorOptions) {
         this.container = document.createElement("div");
@@ -27,9 +28,9 @@ export class Visual implements IVisual {
         const categories = dataView?.categorical?.categories ?? [];
         const values = dataView?.categorical?.values ?? [];
         const columns = [...categories, ...values].slice(0, 6);
-        const settings = VisualSettings.parse(dataView);
-        const cardSettings = settings.card;
-        const fieldTextSettings = settings.fieldTextSettings;
+        this.settings = VisualSettings.parse(dataView);
+        const cardSettings = this.settings.card;
+        const fieldTextSettings = this.settings.fieldTextSettings;
         const columnForRole = (role: string) =>
             columns.find((column) => column.source.roles?.[role]);
         const primaryColumn = columnForRole("field1");
@@ -154,6 +155,10 @@ export class Visual implements IVisual {
 
             this.container.appendChild(record);
         }
+    }
+
+    public getFormattingModel(): powerbi.visuals.FormattingModel {
+        return this.settings.getFormattingModel();
     }
 
     private valueAt(values: ReadonlyArray<unknown>, index: number): string {

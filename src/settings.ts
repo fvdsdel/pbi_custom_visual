@@ -76,6 +76,17 @@ export class VisualSettings {
         ];
     }
 
+    public getFormattingModel(): powerbi.visuals.FormattingModel {
+        return {
+            cards: [
+                this.createCardFormattingCard(),
+                ...this.fieldTextSettings.map((settings, index) =>
+                    this.createFieldFormattingCard(index + 1, settings)
+                )
+            ]
+        };
+    }
+
     private setFieldFormatting(index: number, fieldSettings: FieldTextSettings): void {
         switch (index) {
             case 0:
@@ -97,6 +108,116 @@ export class VisualSettings {
                 this.field6Formatting = fieldSettings;
                 break;
         }
+    }
+
+    private createCardFormattingCard(): powerbi.visuals.FormattingCard {
+        return {
+            uid: "card",
+            displayName: "Card",
+            groups: [
+                {
+                    uid: "cardColors",
+                    displayName: "Colors",
+                    slices: [
+                        this.createColorPickerSlice(
+                            "card",
+                            "outlineColor",
+                            "Outline color",
+                            this.card.outlineColor
+                        ),
+                        this.createColorPickerSlice(
+                            "card",
+                            "accentColor",
+                            "Bottom accent color",
+                            this.card.accentColor
+                        )
+                    ]
+                }
+            ],
+            revertToDefaultDescriptors: [
+                this.createDescriptor("card", "outlineColor"),
+                this.createDescriptor("card", "accentColor")
+            ]
+        };
+    }
+
+    private createFieldFormattingCard(
+        fieldNumber: number,
+        settings: FieldTextSettings
+    ): powerbi.visuals.FormattingCard {
+        const objectName = `field${fieldNumber}Formatting`;
+
+        return {
+            uid: objectName,
+            displayName: `Field ${fieldNumber}`,
+            groups: [
+                {
+                    uid: `${objectName}Text`,
+                    displayName: "Text",
+                    slices: [
+                        {
+                            uid: `${objectName}Font`,
+                            displayName: "Font",
+                            control: {
+                                type: powerbi.visuals.FormattingComponent.FontControl,
+                                properties: {
+                                    fontFamily: {
+                                        descriptor: this.createDescriptor(objectName, "fontFamily"),
+                                        value: settings.fontFamily
+                                    },
+                                    fontSize: {
+                                        descriptor: this.createDescriptor(objectName, "fontSize"),
+                                        value: settings.fontSize
+                                    },
+                                    bold: {
+                                        descriptor: this.createDescriptor(objectName, "bold"),
+                                        value: settings.bold
+                                    }
+                                }
+                            }
+                        },
+                        this.createColorPickerSlice(
+                            objectName,
+                            "color",
+                            "Color",
+                            settings.color
+                        )
+                    ]
+                }
+            ],
+            revertToDefaultDescriptors: [
+                this.createDescriptor(objectName, "fontFamily"),
+                this.createDescriptor(objectName, "fontSize"),
+                this.createDescriptor(objectName, "color"),
+                this.createDescriptor(objectName, "bold")
+            ]
+        };
+    }
+
+    private createColorPickerSlice(
+        objectName: string,
+        propertyName: string,
+        displayName: string,
+        color: string
+    ): powerbi.visuals.FormattingSlice {
+        return {
+            uid: `${objectName}${propertyName}`,
+            displayName,
+            control: {
+                type: powerbi.visuals.FormattingComponent.ColorPicker,
+                properties: {
+                    descriptor: this.createDescriptor(objectName, propertyName),
+                    value: { value: color }
+                }
+            }
+        };
+    }
+
+    private createDescriptor(
+        objectName: string,
+        propertyName: string
+    ): powerbi.visuals.FormattingDescriptor {
+        return { objectName, propertyName };
     }
 }
 
