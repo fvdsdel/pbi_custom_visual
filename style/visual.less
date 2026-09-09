@@ -49,21 +49,6 @@
     white-space: nowrap;
 }
 
-.info {
-    display: inline-grid;
-    width: 16px;
-    height: 16px;
-    flex: 0 0 auto;
-    place-items: center;
-    border-radius: 50%;
-    background: #c8c8c8;
-    color: #fff;
-    font-family: Georgia, serif;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
-}
-
 .primary-value {
     margin-top: 7px;
     color: #111;
@@ -88,24 +73,20 @@
 
 .details {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: auto repeat(2, minmax(0, 1fr));
     gap: 6px 12px;
     padding-top: 2px;
 }
 
 .field {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     align-items: baseline;
     gap: 6px;
     min-width: 0;
 }
 
-.field-without-label {
-    grid-template-columns: 1fr;
-}
-
-.label {
+.row-label {
     color: #333;
     font-size: 9px;
     font-weight: 400;

@@ -58,23 +58,19 @@
 
         .details {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: auto repeat(2, minmax(0, 1fr));
             gap: 6px 12px;
             padding-top: 2px;
         }
 
         .field {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
+            grid-template-columns: minmax(0, 1fr);
             align-items: baseline;
             gap: 6px;
         }
 
-        .field-without-label {
-            grid-template-columns: 1fr;
-        }
-
-        .label {
+        .row-label {
             color: #333;
             font-size: 9px;
             font-weight: 400;
@@ -99,10 +95,8 @@
             <div class="change">+211</div>
         </div>
         <div class="details">
-            <div class="field"><span class="label">BOL</span><span class="value">4.365</span></div>
-            <div class="field field-without-label"><span class="value">+110</span></div>
-            <div class="field"><span class="label">BBL</span><span class="value">2.289</span></div>
-            <div class="field field-without-label"><span class="value">+101</span></div>
+            <span class="row-label">BOL</span><span class="value">4.365</span><span class="value">+110</span>
+            <span class="row-label">BBL</span><span class="value">2.289</span><span class="value">+101</span>
         </div>
     </section>
 </body>

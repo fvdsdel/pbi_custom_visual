@@ -55,14 +55,9 @@ export class Visual implements IVisual {
             record.style.setProperty("--accent-color", cardSettings.accentColor);
 
             const title = this.createTextElement("div", "title", primaryColumn.source.displayName);
-            const info = document.createElement("span");
-            info.className = "info";
-            info.setAttribute("aria-label", `${primaryColumn.source.displayName} information`);
-            info.setAttribute("role", "img");
-            info.textContent = "i";
             const header = document.createElement("div");
             header.className = "header";
-            header.append(title, info);
+            header.appendChild(title);
             const primaryValue = this.createTextElement(
                 "div",
                 "primary-value",
@@ -73,6 +68,13 @@ export class Visual implements IVisual {
             primary.append(header, primaryValue);
             const summary = document.createElement("div");
             summary.className = "summary";
+            summary.style.setProperty("display", "grid", "important");
+            summary.style.setProperty(
+                "grid-template-columns",
+                "minmax(0, 1fr) auto",
+                "important"
+            );
+            summary.style.setProperty("align-items", "end", "important");
             summary.appendChild(primary);
 
             if (secondaryColumn) {
@@ -90,7 +92,7 @@ export class Visual implements IVisual {
             details.style.setProperty("display", "grid", "important");
             details.style.setProperty(
                 "grid-template-columns",
-                "repeat(2, minmax(0, 1fr))",
+                "auto repeat(2, minmax(0, 1fr))",
                 "important"
             );
 
@@ -99,12 +101,26 @@ export class Visual implements IVisual {
                     continue;
                 }
 
+                if (detailIndex === 0 || detailIndex === 2) {
+                    const rowLabel = this.createTextElement(
+                        "div",
+                        "row-label",
+                        detailIndex === 0 ? "BOL" : "BBL"
+                    );
+                    rowLabel.style.setProperty("grid-column", "1", "important");
+                    rowLabel.style.setProperty(
+                        "grid-row",
+                        String(Math.floor(detailIndex / 2) + 1),
+                        "important"
+                    );
+                    details.appendChild(rowLabel);
+                }
+
                 const field = document.createElement("div");
-                const labelText = detailIndex === 0 ? "BOL" : detailIndex === 2 ? "BBL" : "";
-                field.className = labelText ? "field" : "field field-without-label";
+                field.className = "field";
                 field.style.setProperty(
                     "grid-column",
-                    String((detailIndex % 2) + 1),
+                    String((detailIndex % 2) + 2),
                     "important"
                 );
                 field.style.setProperty(
@@ -119,9 +135,6 @@ export class Visual implements IVisual {
                     this.valueAt(column.values, rowIndex)
                 );
 
-                if (labelText) {
-                    field.appendChild(this.createTextElement("div", "label", labelText));
-                }
                 field.appendChild(value);
                 details.appendChild(field);
             }
