@@ -40,16 +40,6 @@
   ],
   "dataViewMappings": [
     {
-      "conditions": [
-                {
-                    "field1": {
-                        "max": 1
-                    }
-                }
-            ],
-      "single": {
-                "role": "field1"
-            },
       "categorical": {
         "categories": {
           "select": [
