@@ -6,8 +6,8 @@
     "visualClassName": "Visual",
     "version": "1.0.0.0",
     "description": "Displays up to six fields in a responsive record grid.",
-    "supportUrl": "",
-    "gitHubUrl": ""
+    "supportUrl": "https://github.com/fvdsdel/pbi_custom_visual/issues",
+    "gitHubUrl": "https://github.com/fvdsdel/pbi_custom_visual"
   },
   "apiVersion": "5.9.0",
   "author": {
