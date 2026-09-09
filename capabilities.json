@@ -83,5 +83,31 @@
       }
     }
   ],
-  "objects": {}
+  "objects": {
+    "card": {
+      "displayName": "Card",
+      "properties": {
+        "outlineColor": {
+          "displayName": "Outline color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "accentColor": {
+          "displayName": "Bottom accent color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
