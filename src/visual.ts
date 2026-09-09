@@ -83,10 +83,14 @@ export class Visual implements IVisual {
 
             const details = document.createElement("div");
             details.className = "details";
+            details.style.display = "grid";
+            details.style.gridTemplateColumns = "minmax(0, 1fr) minmax(0, 1fr)";
 
-            for (const column of columns.slice(2)) {
+            for (const [detailIndex, column] of columns.slice(2).entries()) {
                 const field = document.createElement("div");
                 field.className = "field";
+                field.style.gridColumn = String((detailIndex % 2) + 1);
+                field.style.gridRow = String(Math.floor(detailIndex / 2) + 1);
 
                 const label = this.createTextElement("div", "label", column.source.displayName);
                 const value = this.createTextElement(
