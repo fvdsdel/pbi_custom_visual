@@ -4,37 +4,37 @@
     {
       "displayName": "Field 1",
       "name": "field1",
-      "kind": "Grouping",
+      "kind": "GroupingOrMeasure",
       "description": "First field to display."
     },
     {
       "displayName": "Field 2",
       "name": "field2",
-      "kind": "Grouping",
+      "kind": "GroupingOrMeasure",
       "description": "Second field to display."
     },
     {
       "displayName": "Field 3",
       "name": "field3",
-      "kind": "Grouping",
+      "kind": "GroupingOrMeasure",
       "description": "Third field to display."
     },
     {
       "displayName": "Field 4",
       "name": "field4",
-      "kind": "Grouping",
+      "kind": "GroupingOrMeasure",
       "description": "Fourth field to display."
     },
     {
       "displayName": "Field 5",
       "name": "field5",
-      "kind": "Grouping",
+      "kind": "GroupingOrMeasure",
       "description": "Fifth field to display."
     },
     {
       "displayName": "Field 6",
       "name": "field6",
-      "kind": "Grouping",
+      "kind": "GroupingOrMeasure",
       "description": "Sixth field to display."
     }
   ],
