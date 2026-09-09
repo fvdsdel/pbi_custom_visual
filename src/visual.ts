@@ -43,6 +43,14 @@ export class Visual implements IVisual {
 
             const primaryColumn = columns[0];
             const title = this.createTextElement("div", "title", primaryColumn.source.displayName);
+            const info = document.createElement("span");
+            info.className = "info";
+            info.setAttribute("aria-label", `${primaryColumn.source.displayName} information`);
+            info.setAttribute("role", "img");
+            info.textContent = "i";
+            const header = document.createElement("div");
+            header.className = "header";
+            header.append(title, info);
             const primaryValue = this.createTextElement(
                 "div",
                 "primary-value",
@@ -50,7 +58,7 @@ export class Visual implements IVisual {
             );
             const primary = document.createElement("div");
             primary.className = "primary";
-            primary.append(title, primaryValue);
+            primary.append(header, primaryValue);
             record.appendChild(primary);
 
             if (columns.length > 1) {
