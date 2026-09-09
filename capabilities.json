@@ -5,25 +5,25 @@
       "displayName": "Aantal huidig jaar",
       "name": "field1",
       "kind": "GroupingOrMeasure",
-      "description": "Current-year amount to display as the main value."
+      "description": "Waarde voor het huidige jaar"
     },
     {
       "displayName": "Verschil vorig jaar",
       "name": "field2",
       "kind": "GroupingOrMeasure",
-      "description": "Difference from the previous year to display beside the main value."
+      "description": "Verschil in waarde met vorig jaar"
     },
     {
       "displayName": "Aantal BOL",
       "name": "field3",
       "kind": "GroupingOrMeasure",
-      "description": "Third field to display."
+      "description": "Waarde voor huidige jaar voor de leerweg BOL"
     },
     {
       "displayName": "Verschil BOL",
       "name": "field4",
       "kind": "GroupingOrMeasure",
-      "description": "Fourth field to display."
+      "description": "Verschil in waarde met vorig jaar voor de leerweg BOL"
     },
     {
       "displayName": "Aantal BBL",
@@ -40,14 +40,20 @@
   ],
   "dataViewMappings": [
     {
+      "conditions": [
+                {
+                    "field1": {
+                        "max": 1
+                    }
+                }
+            ],
+      "single": {
+                "role": "field1"
+            },
       "categorical": {
         "categories": {
           "select": [
-            {
-              "bind": {
-                "to": "field1"
-              }
-            },
+            
             {
               "bind": {
                 "to": "field2"
