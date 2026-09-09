@@ -1,0 +1,17 @@
+{
+  "name": "six-field-visual",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "pbiviz start",
+    "package": "pbiviz package"
+  },
+  "dependencies": {
+    "powerbi-models": "^1.13.0",
+    "powerbi-visuals-api": "^5.9.0"
+  },
+  "devDependencies": {
+    "powerbi-visuals-tools": "^5.9.0",
+    "typescript": "^5.3.3"
+  }
+}

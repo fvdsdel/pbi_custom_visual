@@ -1,0 +1,86 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Field 1",
+      "name": "field1",
+      "kind": "Grouping",
+      "description": "First field to display."
+    },
+    {
+      "displayName": "Field 2",
+      "name": "field2",
+      "kind": "Grouping",
+      "description": "Second field to display."
+    },
+    {
+      "displayName": "Field 3",
+      "name": "field3",
+      "kind": "Grouping",
+      "description": "Third field to display."
+    },
+    {
+      "displayName": "Field 4",
+      "name": "field4",
+      "kind": "Grouping",
+      "description": "Fourth field to display."
+    },
+    {
+      "displayName": "Field 5",
+      "name": "field5",
+      "kind": "Grouping",
+      "description": "Fifth field to display."
+    },
+    {
+      "displayName": "Field 6",
+      "name": "field6",
+      "kind": "Grouping",
+      "description": "Sixth field to display."
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "categorical": {
+        "categories": {
+          "select": [
+            {
+              "bind": {
+                "to": "field1"
+              }
+            },
+            {
+              "bind": {
+                "to": "field2"
+              }
+            },
+            {
+              "bind": {
+                "to": "field3"
+              }
+            },
+            {
+              "bind": {
+                "to": "field4"
+              }
+            },
+            {
+              "bind": {
+                "to": "field5"
+              }
+            },
+            {
+              "bind": {
+                "to": "field6"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "top": {
+              "count": 1000
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {}
+}
