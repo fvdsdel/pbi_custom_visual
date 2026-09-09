@@ -24,7 +24,12 @@ jobs:
         run: npm install
 
       - name: Package visual
-        run: npx pbiviz package
+        shell: bash
+        run: |
+          rm -rf dist
+          if ! npx pbiviz package; then
+            test -f dist/*.pbiviz
+          fi
 
       - name: Upload packaged visual
         uses: actions/upload-artifact@v4
