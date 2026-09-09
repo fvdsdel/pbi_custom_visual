@@ -7,6 +7,11 @@ import IVisual = powerbi.extensibility.visual.IVisual;
 import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 
+interface CardSettings {
+    outlineColor: string;
+    accentColor: string;
+}
+
 export class Visual implements IVisual {
     private readonly container: HTMLDivElement;
 
@@ -26,6 +31,7 @@ export class Visual implements IVisual {
         const categories = dataView?.categorical?.categories ?? [];
         const values = dataView?.categorical?.values ?? [];
         const columns = [...categories, ...values].slice(0, 6);
+        const cardSettings = this.getCardSettings(dataView);
 
         if (columns.length === 0) {
             this.renderMessage("Add up to six fields to the visual.");
@@ -40,6 +46,8 @@ export class Visual implements IVisual {
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
             const record = document.createElement("section");
             record.className = "record";
+            record.style.setProperty("--outline-color", cardSettings.outlineColor);
+            record.style.setProperty("--accent-color", cardSettings.accentColor);
 
             const primaryColumn = columns[0];
             const title = this.createTextElement("div", "title", primaryColumn.source.displayName);
@@ -99,6 +107,28 @@ export class Visual implements IVisual {
     private valueAt(values: ReadonlyArray<unknown>, index: number): string {
         const value = values[index];
         return value === null || value === undefined ? "(Blank)" : String(value);
+    }
+
+    private getCardSettings(dataView: DataView | undefined): CardSettings {
+        const card = dataView?.metadata?.objects?.["card"];
+
+        return {
+            outlineColor: this.colorValue(card?.["outlineColor"], "#168577"),
+            accentColor: this.colorValue(card?.["accentColor"], "#168577")
+        };
+    }
+
+    private colorValue(value: unknown, fallback: string): string {
+        if (typeof value !== "object" || value === null || !("solid" in value)) {
+            return fallback;
+        }
+
+        const solid = value.solid;
+        if (typeof solid !== "object" || solid === null || !("color" in solid)) {
+            return fallback;
+        }
+
+        return typeof solid.color === "string" ? solid.color : fallback;
     }
 
     private createTextElement<K extends keyof HTMLElementTagNameMap>(
