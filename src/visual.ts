@@ -55,14 +55,9 @@ export class Visual implements IVisual {
             record.style.setProperty("--accent-color", cardSettings.accentColor);
 
             const title = this.createTextElement("div", "title", primaryColumn.source.displayName);
-            const info = document.createElement("span");
-            info.className = "info";
-            info.setAttribute("aria-label", `${primaryColumn.source.displayName} information`);
-            info.setAttribute("role", "img");
-            info.textContent = "i";
             const header = document.createElement("div");
             header.className = "header";
-            header.append(title, info);
+            header.appendChild(title);
             const primaryValue = this.createTextElement(
                 "div",
                 "primary-value",
