@@ -68,6 +68,13 @@ export class Visual implements IVisual {
             primary.append(header, primaryValue);
             const summary = document.createElement("div");
             summary.className = "summary";
+            summary.style.setProperty("display", "grid", "important");
+            summary.style.setProperty(
+                "grid-template-columns",
+                "minmax(0, 1fr) auto",
+                "important"
+            );
+            summary.style.setProperty("align-items", "end", "important");
             summary.appendChild(primary);
 
             if (secondaryColumn) {
