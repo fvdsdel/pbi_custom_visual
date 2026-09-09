@@ -43,7 +43,7 @@
         .primary-value {
             margin-top: 7px;
             color: #111;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
             line-height: 25px;
         }
@@ -68,6 +68,11 @@
             grid-template-columns: minmax(0, 1fr);
             align-items: baseline;
             gap: 6px;
+        }
+
+        .field-emphasized .value,
+        .field-emphasized.value {
+            font-weight: 700;
         }
 
         .row-label {
@@ -97,8 +102,8 @@
             <div class="change">+211</div>
         </div>
         <div class="details">
-            <span class="row-label">BOL</span><span class="value">4.365</span><span class="value">+110</span>
-            <span class="row-label">BBL</span><span class="value">2.289</span><span class="value">+101</span>
+            <span class="row-label">BOL</span><span class="field-emphasized value">4.365</span><span class="value">+110</span>
+            <span class="row-label">BBL</span><span class="field-emphasized value">2.289</span><span class="value">+101</span>
         </div>
     </section>
 </body>

@@ -119,7 +119,8 @@ export class Visual implements IVisual {
                 }
 
                 const field = document.createElement("div");
-                field.className = "field";
+                field.className =
+                    detailIndex === 0 || detailIndex === 2 ? "field field-emphasized" : "field";
                 field.style.setProperty(
                     "grid-column",
                     String((detailIndex % 2) + 2),
