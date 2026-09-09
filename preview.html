@@ -58,8 +58,8 @@
 
         .details {
             display: grid;
-            grid-template-columns: auto minmax(0, 0.85fr) minmax(0, 1.15fr);
-            gap: 6px 12px;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            gap: 6px 5px;
             padding-top: 2px;
         }
 
@@ -84,6 +84,14 @@
             text-transform: uppercase;
         }
 
+        .center-value {
+            justify-self: center;
+        }
+
+        .right-value {
+            justify-self: end;
+        }
+
         .value {
             color: #111;
             font-size: 11px;
@@ -102,8 +110,8 @@
             <div class="change">+211</div>
         </div>
         <div class="details">
-            <span class="row-label">BOL</span><span class="field-emphasized value">4.365</span><span class="value">+110</span>
-            <span class="row-label">BBL</span><span class="field-emphasized value">2.289</span><span class="value">+101</span>
+            <span class="row-label">BOL</span><span class="field-emphasized value center-value">4.365</span><span class="value right-value">+110</span>
+            <span class="row-label">BBL</span><span class="field-emphasized value center-value">2.289</span><span class="value right-value">+101</span>
         </div>
     </section>
 </body>
