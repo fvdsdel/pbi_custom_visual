@@ -92,7 +92,7 @@ export class Visual implements IVisual {
             details.style.setProperty("display", "grid", "important");
             details.style.setProperty(
                 "grid-template-columns",
-                "auto minmax(0, 0.85fr) minmax(0, 1.15fr)",
+                "auto minmax(0, 1fr) auto",
                 "important"
             );
 
@@ -129,6 +129,11 @@ export class Visual implements IVisual {
                 field.style.setProperty(
                     "grid-row",
                     String(Math.floor(detailIndex / 2) + 1),
+                    "important"
+                );
+                field.style.setProperty(
+                    "justify-self",
+                    detailIndex % 2 === 0 ? "center" : "end",
                     "important"
                 );
 
