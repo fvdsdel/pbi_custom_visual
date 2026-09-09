@@ -10,10 +10,13 @@ import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 export class Visual implements IVisual {
     private readonly container: HTMLDivElement;
 
-    constructor(options: VisualConstructorOptions) {
+    constructor(options?: VisualConstructorOptions) {
         this.container = document.createElement("div");
         this.container.className = "six-field-visual";
-        options.element.appendChild(this.container);
+
+        if (options) {
+            options.element.appendChild(this.container);
+        }
     }
 
     public update(options: VisualUpdateOptions): void {
