@@ -88,24 +88,20 @@
 
 .details {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: auto repeat(2, minmax(0, 1fr));
     gap: 6px 12px;
     padding-top: 2px;
 }
 
 .field {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     align-items: baseline;
     gap: 6px;
     min-width: 0;
 }
 
-.field-without-label {
-    grid-template-columns: 1fr;
-}
-
-.label {
+.row-label {
     color: #333;
     font-size: 9px;
     font-weight: 400;
