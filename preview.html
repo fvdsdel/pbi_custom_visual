@@ -18,78 +18,82 @@
 
         .record {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 8px 16px;
+            gap: 6px;
             width: min(100% - 32px, 300px);
-            padding: 12px 14px 14px;
+            padding: 8px 9px 10px;
             border: 2px solid #168577;
             border-radius: 10px;
             background: #fff;
-            box-shadow: 0 5px 0 #168577;
+            box-shadow: 0 2px 0 #168577;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: end;
+            gap: 10px;
         }
 
         .title {
             color: #111;
-            font-size: 15px;
-            line-height: 20px;
+            font-size: 13px;
+            line-height: 16px;
         }
 
         .primary-value {
-            margin-top: 4px;
+            margin-top: 7px;
             color: #111;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            line-height: 30px;
+            line-height: 25px;
         }
 
         .change {
             align-self: end;
-            margin-bottom: 2px;
-            padding: 5px 9px;
-            border-radius: 4px;
-            background: #effaf7;
-            color: #168577;
-            font-size: 12px;
-            font-weight: 600;
+            margin-bottom: 1px;
+            color: #00a651;
+            font-size: 13px;
+            font-weight: 400;
         }
 
         .details {
-            grid-column: 1 / -1;
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 9px 18px;
-            padding-top: 4px;
+            gap: 6px 12px;
+            padding-top: 2px;
         }
 
         .field {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             align-items: baseline;
-            gap: 8px;
+            gap: 6px;
         }
 
         .label {
             color: #333;
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 9px;
+            font-weight: 400;
             text-transform: uppercase;
         }
 
         .value {
             color: #111;
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 11px;
+            font-weight: 400;
             text-align: right;
         }
     </style>
 </head>
 <body>
     <section class="record" aria-label="Six Field Visual preview">
-        <div>
+        <div class="summary">
+            <div>
             <div class="title">Geplaatst</div>
             <div class="primary-value">6.654</div>
+            </div>
+            <div class="change">+211</div>
         </div>
-        <div class="change">+211</div>
         <div class="details">
             <div class="field"><span class="label">BOL</span><span class="value">4.365</span></div>
             <div class="field"><span class="label">Verschil BOL</span><span class="value">+110</span></div>

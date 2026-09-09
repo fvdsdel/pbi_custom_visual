@@ -67,7 +67,9 @@ export class Visual implements IVisual {
             const primary = document.createElement("div");
             primary.className = "primary";
             primary.append(header, primaryValue);
-            record.appendChild(primary);
+            const summary = document.createElement("div");
+            summary.className = "summary";
+            summary.appendChild(primary);
 
             if (columns.length > 1) {
                 const change = this.createTextElement(
@@ -75,8 +77,9 @@ export class Visual implements IVisual {
                     "change",
                     this.valueAt(columns[1].values, rowIndex)
                 );
-                record.appendChild(change);
+                summary.appendChild(change);
             }
+            record.appendChild(summary);
 
             const details = document.createElement("div");
             details.className = "details";
