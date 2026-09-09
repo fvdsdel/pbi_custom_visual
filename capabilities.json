@@ -84,6 +84,228 @@
     }
   ],
   "objects": {
+    "field1Formatting": {
+      "displayName": "Field 1",
+      "properties": {
+        "fontFamily": {
+          "displayName": "Font family",
+          "type": {
+            "formatting": {
+              "fontFamily": true
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "color": {
+          "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "bold": {
+          "displayName": "Bold",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
+    "field2Formatting": {
+      "displayName": "Field 2",
+      "properties": {
+        "fontFamily": {
+          "displayName": "Font family",
+          "type": {
+            "formatting": {
+              "fontFamily": true
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "color": {
+          "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "bold": {
+          "displayName": "Bold",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
+    "field3Formatting": {
+      "displayName": "Field 3",
+      "properties": {
+        "fontFamily": {
+          "displayName": "Font family",
+          "type": {
+            "formatting": {
+              "fontFamily": true
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "color": {
+          "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "bold": {
+          "displayName": "Bold",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
+    "field4Formatting": {
+      "displayName": "Field 4",
+      "properties": {
+        "fontFamily": {
+          "displayName": "Font family",
+          "type": {
+            "formatting": {
+              "fontFamily": true
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "color": {
+          "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "bold": {
+          "displayName": "Bold",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
+    "field5Formatting": {
+      "displayName": "Field 5",
+      "properties": {
+        "fontFamily": {
+          "displayName": "Font family",
+          "type": {
+            "formatting": {
+              "fontFamily": true
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "color": {
+          "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "bold": {
+          "displayName": "Bold",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
+    "field6Formatting": {
+      "displayName": "Field 6",
+      "properties": {
+        "fontFamily": {
+          "displayName": "Font family",
+          "type": {
+            "formatting": {
+              "fontFamily": true
+            }
+          }
+        },
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        },
+        "color": {
+          "displayName": "Color",
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
+        },
+        "bold": {
+          "displayName": "Bold",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    },
     "card": {
       "displayName": "Card",
       "properties": {

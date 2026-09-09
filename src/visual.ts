@@ -12,6 +12,22 @@ interface CardSettings {
     accentColor: string;
 }
 
+interface FieldTextSettings {
+    fontFamily: string;
+    fontSize: number;
+    color: string;
+    bold: boolean;
+}
+
+const defaultFieldTextSettings: ReadonlyArray<FieldTextSettings> = [
+    { fontFamily: "Segoe UI", fontSize: 16, color: "#111", bold: true },
+    { fontFamily: "Segoe UI", fontSize: 13, color: "#00a651", bold: false },
+    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
+    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: false },
+    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
+    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: false }
+];
+
 export class Visual implements IVisual {
     private readonly container: HTMLDivElement;
 
@@ -32,6 +48,7 @@ export class Visual implements IVisual {
         const values = dataView?.categorical?.values ?? [];
         const columns = [...categories, ...values].slice(0, 6);
         const cardSettings = this.getCardSettings(dataView);
+        const fieldTextSettings = this.getFieldTextSettings(dataView);
         const columnForRole = (role: string) =>
             columns.find((column) => column.source.roles?.[role]);
         const primaryColumn = columnForRole("field1");
@@ -63,7 +80,7 @@ export class Visual implements IVisual {
                 "primary-value",
                 this.valueAt(primaryColumn.values, rowIndex)
             );
-            primaryValue.style.setProperty("font-weight", "700", "important");
+            this.applyTextSettings(primaryValue, fieldTextSettings[0]);
             const primary = document.createElement("div");
             primary.className = "primary";
             primary.append(header, primaryValue);
@@ -84,6 +101,7 @@ export class Visual implements IVisual {
                     "change",
                     this.valueAt(secondaryColumn.values, rowIndex)
                 );
+                this.applyTextSettings(change, fieldTextSettings[1]);
                 summary.appendChild(change);
             }
             record.appendChild(summary);
@@ -143,9 +161,7 @@ export class Visual implements IVisual {
                     "value",
                     this.valueAt(column.values, rowIndex)
                 );
-                if (detailIndex === 0 || detailIndex === 2) {
-                    value.style.setProperty("font-weight", "700", "important");
-                }
+                this.applyTextSettings(value, fieldTextSettings[detailIndex + 2]);
 
                 field.appendChild(value);
                 details.appendChild(field);
@@ -173,6 +189,28 @@ export class Visual implements IVisual {
         };
     }
 
+    private getFieldTextSettings(dataView: DataView | undefined): FieldTextSettings[] {
+        const objects = dataView?.metadata?.objects;
+
+        return defaultFieldTextSettings.map((defaults, index) => {
+            const formatting = objects?.[`field${index + 1}Formatting`];
+
+            return {
+                fontFamily: this.stringValue(formatting?.["fontFamily"], defaults.fontFamily),
+                fontSize: this.fontSizeValue(formatting?.["fontSize"], defaults.fontSize),
+                color: this.colorValue(formatting?.["color"], defaults.color),
+                bold: this.booleanValue(formatting?.["bold"], defaults.bold)
+            };
+        });
+    }
+
+    private applyTextSettings(element: HTMLElement, settings: FieldTextSettings): void {
+        element.style.setProperty("font-family", settings.fontFamily, "important");
+        element.style.setProperty("font-size", `${settings.fontSize}px`, "important");
+        element.style.setProperty("color", settings.color, "important");
+        element.style.setProperty("font-weight", settings.bold ? "700" : "400", "important");
+    }
+
     private colorValue(value: unknown, fallback: string): string {
         if (typeof value !== "object" || value === null || !("solid" in value)) {
             return fallback;
@@ -184,6 +222,18 @@ export class Visual implements IVisual {
         }
 
         return typeof solid.color === "string" ? solid.color : fallback;
+    }
+
+    private stringValue(value: unknown, fallback: string): string {
+        return typeof value === "string" && value.trim().length > 0 ? value : fallback;
+    }
+
+    private fontSizeValue(value: unknown, fallback: number): number {
+        return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
+    }
+
+    private booleanValue(value: unknown, fallback: boolean): boolean {
+        return typeof value === "boolean" ? value : fallback;
     }
 
     private createTextElement<K extends keyof HTMLElementTagNameMap>(
