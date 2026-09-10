@@ -193,7 +193,7 @@ export class VisualSettings {
                             uid: "rowLabelsFontSize",
                             displayName: "Font size",
                             control: {
-                                type: powerbi.visuals.FormattingComponent.NumUpDown,
+                                type: "NumUpDown",
                                 properties: {
                                     descriptor: this.createDescriptor("rowLabels", "fontSize"),
                                     value: this.rowLabels.fontSize
@@ -269,7 +269,7 @@ export class VisualSettings {
                                       uid: `${objectName}CornerRadius`,
                                       displayName: "Corner radius",
                                       control: {
-                                          type: powerbi.visuals.FormattingComponent.NumUpDown,
+                                          type: "NumUpDown",
                                           properties: {
                                               descriptor: this.createDescriptor(
                                                   objectName,
