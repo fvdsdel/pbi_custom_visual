@@ -3,7 +3,7 @@ name: Package Power BI visual
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, manual_changes]
 
 permissions:
   contents: read
