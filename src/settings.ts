@@ -275,7 +275,7 @@ export class VisualSettings {
                                                   objectName,
                                                   "cornerRadius"
                                               ),
-                                              value: settings.cornerRadius
+                                              value: settings.cornerRadius ?? 5
                                           }
                                       }
                                   }
