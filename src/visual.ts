@@ -30,6 +30,7 @@ export class Visual implements IVisual {
         const columns = [...categories, ...values].slice(0, 6);
         this.settings = VisualSettings.parse(dataView);
         const cardSettings = this.settings.card;
+        const rowLabelSettings = this.settings.rowLabels;
         const fieldTextSettings = this.settings.fieldTextSettings;
         const columnForRole = (role: string) =>
             columns.find((column) => column.source.roles?.[role]);
@@ -53,10 +54,6 @@ export class Visual implements IVisual {
             record.style.setProperty("--outline-color", cardSettings.outlineColor);
             record.style.setProperty("--accent-color", cardSettings.accentColor);
 
-            const title = this.createTextElement("div", "title", primaryColumn.source.displayName);
-            const header = document.createElement("div");
-            header.className = "header";
-            header.appendChild(title);
             const primaryValue = this.createTextElement(
                 "div",
                 "primary-value",
@@ -65,7 +62,7 @@ export class Visual implements IVisual {
             this.applyTextSettings(primaryValue, fieldTextSettings[0]);
             const primary = document.createElement("div");
             primary.className = "primary";
-            primary.append(header, primaryValue);
+            primary.appendChild(primaryValue);
             const summary = document.createElement("div");
             summary.className = "summary";
             summary.style.setProperty("display", "grid", "important");
@@ -84,7 +81,7 @@ export class Visual implements IVisual {
                     this.valueAt(secondaryColumn, rowIndex)
                 );
                 this.applyTextSettings(change, fieldTextSettings[1]);
-                this.applyBackgroundSetting(change, fieldTextSettings[1]);
+                this.applyBackgroundSettings(change, fieldTextSettings[1]);
                 summary.appendChild(change);
             }
             record.appendChild(summary);
@@ -112,6 +109,11 @@ export class Visual implements IVisual {
                     rowLabel.style.setProperty("grid-column", "1", "important");
                     rowLabel.style.setProperty("justify-self", "start", "important");
                     rowLabel.style.setProperty("text-align", "left", "important");
+                    rowLabel.style.setProperty(
+                        "font-size",
+                        `${rowLabelSettings.fontSize}px`,
+                        "important"
+                    );
                     rowLabel.style.setProperty(
                         "grid-row",
                         String(Math.floor(detailIndex / 2) + 1),
@@ -145,7 +147,7 @@ export class Visual implements IVisual {
                     this.valueAt(column, rowIndex)
                 );
                 this.applyTextSettings(value, fieldTextSettings[detailIndex + 2]);
-                this.applyBackgroundSetting(value, fieldTextSettings[detailIndex + 2]);
+                this.applyBackgroundSettings(value, fieldTextSettings[detailIndex + 2]);
 
                 field.appendChild(value);
                 details.appendChild(field);
@@ -186,11 +188,19 @@ export class Visual implements IVisual {
         element.style.setProperty("font-weight", settings.bold ? "700" : "400", "important");
     }
 
-    private applyBackgroundSetting(element: HTMLElement, settings: FieldTextSettings): void {
+    private applyBackgroundSettings(element: HTMLElement, settings: FieldTextSettings): void {
         if (settings.backgroundColor !== undefined) {
             element.style.setProperty(
                 "background-color",
                 settings.backgroundColor,
+                "important"
+            );
+        }
+
+        if (settings.cornerRadius !== undefined) {
+            element.style.setProperty(
+                "border-radius",
+                `${settings.cornerRadius}px`,
                 "important"
             );
         }

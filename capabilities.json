@@ -84,6 +84,19 @@
     }
   ],
   "objects": {
+    "rowLabels": {
+      "displayName": "Row labels",
+      "properties": {
+        "fontSize": {
+          "displayName": "Font size",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        }
+      }
+    },
     "field1Formatting": {
       "displayName": "Field 1",
       "properties": {
@@ -158,6 +171,12 @@
                 "color": true
               }
             }
+          }
+        },
+        "cornerRadius": {
+          "displayName": "Corner radius",
+          "type": {
+            "numeric": true
           }
         },
         "bold": {
@@ -244,6 +263,12 @@
             }
           }
         },
+        "cornerRadius": {
+          "displayName": "Corner radius",
+          "type": {
+            "numeric": true
+          }
+        },
         "bold": {
           "displayName": "Bold",
           "type": {
@@ -326,6 +351,12 @@
                 "color": true
               }
             }
+          }
+        },
+        "cornerRadius": {
+          "displayName": "Corner radius",
+          "type": {
+            "numeric": true
           }
         },
         "bold": {
