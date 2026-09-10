@@ -4,7 +4,7 @@
     "displayName": "Six Field Visual",
     "guid": "SixFieldVisualB19C2D3E4F5A6B7C8D9E0F1A2B3C4D5",
     "visualClassName": "Visual",
-    "version": "1.0.0.0",
+    "version": "1.0.0.1",
     "description": "Displays up to six fields in a responsive record grid.",
     "supportUrl": "https://github.com/fvdsdel/pbi_custom_visual/issues",
     "gitHubUrl": "https://github.com/fvdsdel/pbi_custom_visual"

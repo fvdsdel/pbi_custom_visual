@@ -4,37 +4,37 @@
     {
       "displayName": "Aantal huidig jaar",
       "name": "field1",
-      "kind": "GroupingOrMeasure",
+      "kind": "Measure",
       "description": "Waarde voor het huidige jaar"
     },
     {
       "displayName": "Verschil vorig jaar",
       "name": "field2",
-      "kind": "GroupingOrMeasure",
+      "kind": "Measure",
       "description": "Verschil in waarde met vorig jaar"
     },
     {
       "displayName": "Aantal BOL",
       "name": "field3",
-      "kind": "GroupingOrMeasure",
+      "kind": "Measure",
       "description": "Waarde voor huidige jaar voor de leerweg BOL"
     },
     {
       "displayName": "Verschil BOL",
       "name": "field4",
-      "kind": "GroupingOrMeasure",
+      "kind": "Measure",
       "description": "Verschil in waarde met vorig jaar voor de leerweg BOL"
     },
     {
       "displayName": "Aantal BBL",
       "name": "field5",
-      "kind": "GroupingOrMeasure",
+      "kind": "Measure",
       "description": "Fifth field to display."
     },
     {
       "displayName": "Verschil BBL",
       "name": "field6",
-      "kind": "GroupingOrMeasure",
+      "kind": "Measure",
       "description": "Sixth field to display."
     }
   ],

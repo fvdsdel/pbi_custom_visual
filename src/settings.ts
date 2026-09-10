@@ -33,27 +33,27 @@ const defaultRowLabelSettings: RowLabelSettings = {
 };
 
 const defaultFieldTextSettings: readonly FieldTextSettings[] = [
-    { fontFamily: "Segoe UI", fontSize: 16, color: "#111", bold: true },
+    { fontFamily: "Arial", fontSize: 16, color: "#111", bold: true },
     {
-        fontFamily: "Segoe UI",
+        fontFamily: "Arial",
         fontSize: 13,
         color: "#00a651",
         bold: false,
         backgroundColor: "transparent",
         cornerRadius: 5
     },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
+    { fontFamily: "Arial", fontSize: 11, color: "#111", bold: true },
     {
-        fontFamily: "Segoe UI",
+        fontFamily: "Arial",
         fontSize: 11,
         color: "#111",
         bold: false,
         backgroundColor: "transparent",
         cornerRadius: 5
     },
-    { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
+    { fontFamily: "Arial", fontSize: 11, color: "#111", bold: true },
     {
-        fontFamily: "Segoe UI",
+        fontFamily: "Arial",
         fontSize: 11,
         color: "#111",
         bold: false,
