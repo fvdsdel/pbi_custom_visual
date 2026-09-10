@@ -9,6 +9,8 @@ import DataView = powerbi.DataView;
 import IVisual = powerbi.extensibility.visual.IVisual;
 import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
+import EnumerateVisualObjectInstancesOptions = powerbi.EnumerateVisualObjectInstancesOptions;
+import VisualObjectInstance = powerbi.VisualObjectInstance;
 
 export class Visual implements IVisual {
     private readonly container: HTMLDivElement;
@@ -27,6 +29,9 @@ export class Visual implements IVisual {
         this.container.replaceChildren();
 
         const dataView: DataView | undefined = options.dataViews && options.dataViews[0];
+        const cardColors = dataView?.metadata?.objects?.cardColors;
+        this.outlineColor = this.getFillColor(cardColors?.outlineColor, "#168577");
+        this.accentBarColor = this.getFillColor(cardColors?.accentBarColor, "#168577");
         const categories = dataView?.categorical?.categories ?? [];
         const values = dataView?.categorical?.values ?? [];
         const columns = [...categories, ...values].slice(0, 6);

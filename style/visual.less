@@ -1,42 +1,66 @@
 .six-field-visual {
     box-sizing: border-box;
     display: grid;
-    gap: 8px;
+    gap: 10px;
     height: 100%;
     overflow: auto;
-    padding: 6px;
+    padding: 8px;
     font-family: "Segoe UI", sans-serif;
 }
 
 .record {
     position: relative;
     display: grid;
-    gap: 20px;
-    min-width: 170px;
-    max-width: 260px;
-    padding: 8px 9px 10px;
-    border: 2px solid var(--outline-color, #168577);
-    border-radius: 10px;
+    grid-template-columns: 1fr auto;
+    gap: 6px 12px;
+    min-width: 180px;
+    padding: 8px 10px 10px;
+    border: 1px solid var(--outline-color, #168577);
+    border-radius: 7px;
     background: #fff;
-    box-shadow: 0 2px 0 var(--accent-color, #168577);
+    box-shadow: 0 4px 0 var(--accent-bar-color, #168577);
 }
 
 .primary {
     min-width: 0;
 }
 
-.summary {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    gap: 10px;
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.title {
+    color: #111;
+    font-size: 15px;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #bcbcbc;
+    color: #fff;
+    font-family: Georgia, serif;
+    font-size: 12px;
+    font-weight: 700;
+    font-style: italic;
 }
 
 .primary-value {
+    margin-top: 3px;
     color: #111;
-    font-size: 16px;
+    font-size: 23px;
     font-weight: 700;
-    line-height: 25px;
+    line-height: 28px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -44,19 +68,20 @@
 
 .change {
     align-self: end;
-    margin-bottom: 1px;
-    padding: 0;
-    background: transparent;
-    color: #00a651;
-    font-size: 13px;
-    font-weight: 400;
+    margin-bottom: 2px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background: #effaf7;
+    color: #168577;
+    font-size: 12px;
+    font-weight: 600;
     white-space: nowrap;
 }
 
 .details {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 6px 5px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px 16px;
     padding-top: 2px;
 }
 
