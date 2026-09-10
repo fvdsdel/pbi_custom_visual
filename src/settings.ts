@@ -16,11 +16,20 @@ export interface FieldTextSettings {
     color: string;
     bold: boolean;
     backgroundColor?: string;
+    cornerRadius?: number;
+}
+
+export interface RowLabelSettings {
+    fontSize: number;
 }
 
 const defaultCardSettings: CardSettings = {
     outlineColor: "#168577",
     accentColor: "#168577"
+};
+
+const defaultRowLabelSettings: RowLabelSettings = {
+    fontSize: 9
 };
 
 const defaultFieldTextSettings: readonly FieldTextSettings[] = [
@@ -30,7 +39,8 @@ const defaultFieldTextSettings: readonly FieldTextSettings[] = [
         fontSize: 13,
         color: "#00a651",
         bold: false,
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        cornerRadius: 5
     },
     { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
     {
@@ -38,7 +48,8 @@ const defaultFieldTextSettings: readonly FieldTextSettings[] = [
         fontSize: 11,
         color: "#111",
         bold: false,
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        cornerRadius: 5
     },
     { fontFamily: "Segoe UI", fontSize: 11, color: "#111", bold: true },
     {
@@ -46,12 +57,14 @@ const defaultFieldTextSettings: readonly FieldTextSettings[] = [
         fontSize: 11,
         color: "#111",
         bold: false,
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        cornerRadius: 5
     }
 ];
 
 export class VisualSettings {
     public card: CardSettings = { ...defaultCardSettings };
+    public rowLabels: RowLabelSettings = { ...defaultRowLabelSettings };
     public field1Formatting: FieldTextSettings = { ...defaultFieldTextSettings[0] };
     public field2Formatting: FieldTextSettings = { ...defaultFieldTextSettings[1] };
     public field3Formatting: FieldTextSettings = { ...defaultFieldTextSettings[2] };
@@ -71,6 +84,12 @@ export class VisualSettings {
             accentColor: colorValue(
                 propertyValue(objects, "card", "accentColor"),
                 defaultCardSettings.accentColor
+            )
+        };
+        settings.rowLabels = {
+            fontSize: fontSizeValue(
+                propertyValue(objects, "rowLabels", "fontSize"),
+                defaultRowLabelSettings.fontSize
             )
         };
 
@@ -99,6 +118,7 @@ export class VisualSettings {
         return {
             cards: [
                 this.createCardFormattingCard(),
+                this.createRowLabelsFormattingCard(),
                 ...this.fieldTextSettings.map((settings, index) =>
                     this.createFieldFormattingCard(index + 1, settings)
                 )
@@ -160,6 +180,33 @@ export class VisualSettings {
         };
     }
 
+    private createRowLabelsFormattingCard(): powerbi.visuals.FormattingCard {
+        return {
+            uid: "rowLabels",
+            displayName: "Row labels",
+            groups: [
+                {
+                    uid: "rowLabelsText",
+                    displayName: "Text",
+                    slices: [
+                        {
+                            uid: "rowLabelsFontSize",
+                            displayName: "Font size",
+                            control: {
+                                type: powerbi.visuals.FormattingComponent.NumUpDown,
+                                properties: {
+                                    descriptor: this.createDescriptor("rowLabels", "fontSize"),
+                                    value: this.rowLabels.fontSize
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            revertToDefaultDescriptors: [this.createDescriptor("rowLabels", "fontSize")]
+        };
+    }
+
     private createFieldFormattingCard(
         fieldNumber: number,
         settings: FieldTextSettings
@@ -217,7 +264,21 @@ export class VisualSettings {
                                       "Color",
                                       settings.backgroundColor,
                                       true
-                                  )
+                                  ),
+                                  {
+                                      uid: `${objectName}CornerRadius`,
+                                      displayName: "Corner radius",
+                                      control: {
+                                          type: powerbi.visuals.FormattingComponent.NumUpDown,
+                                          properties: {
+                                              descriptor: this.createDescriptor(
+                                                  objectName,
+                                                  "cornerRadius"
+                                              ),
+                                              value: settings.cornerRadius
+                                          }
+                                      }
+                                  }
                               ]
                           }
                       ])
@@ -229,7 +290,10 @@ export class VisualSettings {
                 this.createDescriptor(objectName, "bold"),
                 ...(settings.backgroundColor === undefined
                     ? []
-                    : [this.createDescriptor(objectName, "backgroundColor")])
+                    : [
+                          this.createDescriptor(objectName, "backgroundColor"),
+                          this.createDescriptor(objectName, "cornerRadius")
+                      ])
             ]
         };
     }
@@ -285,6 +349,10 @@ function parseFieldTextSettings(
                   backgroundColor: colorValue(
                       propertyValue(objects, objectName, "backgroundColor"),
                       defaults.backgroundColor
+                  ),
+                  cornerRadius: cornerRadiusValue(
+                      propertyValue(objects, objectName, "cornerRadius"),
+                      defaults.cornerRadius ?? 0
                   )
               })
     };
@@ -313,6 +381,10 @@ function stringValue(value: unknown, fallback: string): string {
 
 function fontSizeValue(value: unknown, fallback: number): number {
     return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
+}
+
+function cornerRadiusValue(value: unknown, fallback: number): number {
+    return typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : fallback;
 }
 
 function booleanValue(value: unknown, fallback: boolean): boolean {
