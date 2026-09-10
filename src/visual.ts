@@ -1,5 +1,7 @@
 "use strict";
 
+let version = "0.0.1";
+
 import powerbi from "powerbi-visuals-api";
 import { FieldTextSettings, VisualSettings } from "./settings";
 
