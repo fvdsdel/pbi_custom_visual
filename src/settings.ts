@@ -193,7 +193,7 @@ export class VisualSettings {
                             uid: "rowLabelsFontSize",
                             displayName: "Font size",
                             control: {
-                                type: "NumUpDown",
+                                type: "NumUpDown" as const,
                                 properties: {
                                     descriptor: this.createDescriptor("rowLabels", "fontSize"),
                                     value: this.rowLabels.fontSize
@@ -269,7 +269,7 @@ export class VisualSettings {
                                       uid: `${objectName}CornerRadius`,
                                       displayName: "Corner radius",
                                       control: {
-                                          type: "NumUpDown",
+                                          type: "NumUpDown" as const,
                                           properties: {
                                               descriptor: this.createDescriptor(
                                                   objectName,
